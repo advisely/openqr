@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenQR</title>
+    <title>openQR</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,10 +14,50 @@
         </label>
     </div>
     <div class="container">
-        <h1>OpenQR</h1>
-        <p>Enter a URL to generate a QR code.</p>
-        <input type="text" id="qr-text" placeholder="https://example.com">
+        <h1>openQR</h1>
+        <div class="tabs">
+            <button class="tab-link active" data-tab="url">URL</button>
+            <button class="tab-link" data-tab="text">Text</button>
+            <button class="tab-link" data-tab="wifi">Wi-Fi</button>
+            <button class="tab-link" data-tab="vcard">vCard</button>
+        </div>
+
+        <div id="url" class="tab-content active">
+            <p>Enter a URL to generate a QR code.</p>
+            <input type="text" id="qr-text" placeholder="https://example.com">
+        </div>
+
+        <div id="text" class="tab-content">
+            <p>Enter any text to generate a QR code.</p>
+            <textarea id="text-input" placeholder="Hello, World!" rows="4"></textarea>
+        </div>
+
+        <div id="wifi" class="tab-content">
+            <p>Enter Wi-Fi details for easy connection.</p>
+            <input type="text" id="wifi-ssid" placeholder="Network Name (SSID)">
+            <input type="password" id="wifi-password" placeholder="Password">
+            <select id="wifi-encryption">
+                <option value="WPA">WPA/WPA2</option>
+                <option value="WEP">WEP</option>
+                <option value="nopass">No Password</option>
+            </select>
+        </div>
+
+        <div id="vcard" class="tab-content">
+            <p>Enter contact details for a vCard QR code.</p>
+            <input type="text" id="vcard-name" placeholder="Full Name">
+            <input type="tel" id="vcard-phone" placeholder="Phone Number">
+            <input type="email" id="vcard-email" placeholder="Email Address">
+        </div>
         <div class="controls">
+            <div>
+                <label for="qr-size">Size:</label>
+                <select id="qr-size">
+                    <option value="64">Small</option>
+                    <option value="128" selected>Medium</option>
+                    <option value="256">Large</option>
+                </select>
+            </div>
             <div>
                 <label for="color-dark">Color:</label>
                 <input type="color" id="color-dark" value="#000000">
@@ -26,6 +66,37 @@
                 <label for="color-light">Background:</label>
                 <input type="color" id="color-light" value="#ffffff">
             </div>
+            <div class="level-control">
+                <label for="correction-level">Level:</label>
+                <select id="correction-level">
+                    <option value="L">Low (7%)</option>
+                    <option value="M">Medium (15%)</option>
+                    <option value="Q">Quartile (25%)</option>
+                    <option value="H" selected>High (30%)</option>
+                </select>
+                <div class="help-container">
+                    <span class="help-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75c-.27.3-.57.57-.92.82C13.45 12.83 13 13.54 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+                    </span>
+                    <span class="tooltip">Higher correction levels can recover more data if the QR code is damaged, but they also increase the code's density, making it harder to scan. 'High' is best for codes that might get dirty or worn.</span>
+                </div>
+            </div>
+        </div>
+        <div class="logo-controls">
+            <label for="logo-upload" class="logo-label">Add Logo</label>
+            <input type="file" id="logo-upload" accept="image/*" hidden>
+            <button id="clear-logo-btn" style="display: none;">Remove Logo</button>
+            <div class="help-container">
+                <span class="help-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75c-.27.3-.57.57-.92.82C13.45 12.83 13 13.54 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+                </span>
+                <span class="tooltip">Logos can only be added to Large (256px) QR codes. This ensures the code remains scannable.</span>
+            </div>
+        </div>
+
+        <div class="outline-control">
+            <input type="checkbox" id="qr-outline">
+            <label for="qr-outline">Add square outline</label>
         </div>
         <button id="download-btn">Download QR Code</button>
         <div id="qr-code"></div>

@@ -5,9 +5,12 @@ This is a simple, free, and open-source QR code generator that runs entirely in 
 ## ✨ Features
 
 - **Real-time Generation:** The QR code updates instantly as you type.
-- **Color Customization:** Easily change the color of the QR code and its background.
-- **Downloadable:** Save the QR code as a high-quality PNG image.
-- **Client-Side:** No data is sent to a server. Everything happens in your browser.
+- **Color Customization:** Choose custom colors for the QR code and its background.
+- **Add Your Logo:** Embed your own logo in the center of the QR code for branding.
+- **Error Correction:** Select from four levels of error correction (Low, Medium, Quartile, High) to ensure scannability.
+- **Download PNG:** Save the generated QR code as a high-quality PNG image.
+- **Light/Dark Theme:** Switch between light and dark modes, with your preference saved for your next visit.
+- **Multiple Data Types:** Generate QR codes for URLs, plain text, Wi-Fi credentials, and vCard contact information.
 - **Persistent QR Codes:** The generated QR codes store the link data directly and will work forever, independently of this app.
 - **Free & Open Source:** This tool is completely free to use with no subscriptions or hidden costs.
 
@@ -44,6 +47,16 @@ For the best experience and to avoid any potential browser security issues with 
   ```bash
   fuser -k 8000/tcp
   ```
+
+## 📖 Usage
+
+1.  **Select Data Type:** Click on the tabs (URL, Text, Wi-Fi, vCard) to choose the type of QR code you want to create.
+2.  **Enter Your Data:** Fill in the input fields for your chosen data type.
+3.  **Customize (Optional):**
+    *   Use the color pickers to change the QR code and background colors.
+    *   Select an error correction level from the dropdown. Higher levels create more dense but more robust QR codes.
+    *   Click "Add Logo" to upload an image to be placed in the center of the QR code. Use "Clear Logo" to remove it.
+4.  **Download:** Once your QR code is generated, click the "Download QR Code" button to save it as a PNG file.
 
 ## 📝 How to Use the App
 

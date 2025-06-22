@@ -5,15 +5,17 @@
     --secondary-text-color: #666;
     --border-color: #ccc;
     --shadow-color: rgba(0, 0, 0, 0.1);
+    --tooltip-bg-color: #ffffff;
 }
 
 body.dark-mode {
-    --primary-bg-color: #121212;
-    --container-bg-color: #1e1e1e;
-    --primary-text-color: #e0e0e0;
-    --secondary-text-color: #a0a0a0;
-    --border-color: #444;
-    --shadow-color: rgba(255, 255, 255, 0.1);
+    --primary-bg-color: #2c3e50; /* Dark blue-grey */
+    --container-bg-color: #34495e; /* Slightly lighter blue-grey */
+    --primary-text-color: #ecf0f1; /* Light grey */
+    --secondary-text-color: #bdc3c7; /* Lighter grey for secondary text */
+    --border-color: #4a627a;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    --tooltip-bg-color: #2c3e50; /* Match body background for contrast */
 }
 
 body {
@@ -49,7 +51,7 @@ p {
 #qr-text {
     width: calc(100% - 22px);
     padding: 10px;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem; /* Reduced margin */
     border: 1px solid var(--border-color);
     border-radius: 5px;
     background-color: var(--container-bg-color);
@@ -73,7 +75,9 @@ p {
 
 .controls {
     display: flex;
-    justify-content: space-around;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem 1.5rem; /* row-gap column-gap */
     margin: 1rem 0;
     align-items: center;
 }
@@ -97,6 +101,145 @@ p {
     cursor: pointer;
 }
 
+.controls select {
+    padding: 5px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: var(--container-bg-color);
+    color: var(--primary-text-color);
+    cursor: pointer;
+}
+
+.logo-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.75rem; /* Reduced margin */
+}
+
+.outline-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    color: var(--secondary-text-color);
+}
+
+.logo-label, #clear-logo-btn {
+    padding: 8px 15px;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 0.9em;
+}
+
+.logo-label.disabled, #clear-logo-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    color: #666;
+}
+
+.logo-label {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+}
+
+.logo-label:hover {
+    background-color: #0056b3;
+}
+
+#clear-logo-btn {
+    background-color: #dc3545;
+    color: white;
+    border: 1px solid #dc3545;
+    display: none; /* Hidden by default */
+}
+
+#clear-logo-btn:hover {
+    background-color: #c82333;
+}
+
+#logo-input {
+    display: none; /* Hide the default file input */
+}
+
+.level-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.help-container {
+    position: relative; /* This is the anchor for the absolute tooltip */
+    display: inline-flex; /* Use flex to align icon and tooltip if needed */
+    align-items: center;
+    margin-left: 8px; /* Add some space between the control and the icon */
+}
+
+.help-icon {
+    display: inline-flex; /* Use flex to center SVG */
+    align-items: center;
+    justify-content: center;
+    width: 18px; /* Slightly larger for better visibility */
+    height: 18px;
+    cursor: help;
+    color: var(--secondary-text-color); /* SVG will inherit this color */
+}
+
+.help-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.tooltip {
+    position: absolute; /* Takes the element out of the document flow */
+    bottom: 140%; /* Position above the icon */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 250px;
+    background-color: var(--tooltip-bg-color);
+    color: var(--primary-text-color);
+    text-align: left;
+    border-radius: 8px;
+    padding: 15px;
+    z-index: 1000;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    border: 1px solid var(--border-color);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+    pointer-events: none; /* Tooltip itself is not interactive */
+}
+
+.help-icon-container:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto; /* Allow mouse interaction with the tooltip */
+}
+
+.tooltip h4 {
+    margin-top: 0;
+}
+
+#qr-code {
+    margin-top: 0.75rem;
+}
+
+.tooltip ul {
+    padding-left: 20px;
+    margin-bottom: 0;
+}
+
+.tooltip li {
+    margin-bottom: 5px;
+}
+
 #download-btn {
     background-color: #28a745;
     color: white;
@@ -105,13 +248,62 @@ p {
     border-radius: 5px;
     cursor: pointer;
     font-size: 1rem;
-    margin-top: 1rem;
+    margin-top: 0.75rem; /* Reduced margin */
     transition: background-color 0.3s;
     display: none; /* Hidden by default */
 }
 
 #download-btn:hover {
     background-color: #218838;
+}
+
+/* Tab Styles */
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tab-link {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    color: var(--secondary-text-color);
+    font-size: 1rem;
+    transition: color 0.3s, border-bottom 0.3s;
+    border-bottom: 2px solid transparent;
+}
+
+.tab-link.active {
+    color: var(--primary-text-color);
+    border-bottom: 2px solid #007bff;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.tab-content input,
+.tab-content textarea,
+.tab-content select {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: var(--container-bg-color);
+    color: var(--primary-text-color);
+}
+
+.tab-content textarea {
+    resize: vertical;
+    min-height: 80px;
 }
 
 #qr-code {
@@ -167,7 +359,7 @@ p {
 }
 
 input:checked + .slider {
-    background-color: #2c3e50; /* Dark mode night sky */
+    background-color: #4a627a; /* A lighter grey to contrast with the dark background */
 }
 
 input:checked + .slider:before {
