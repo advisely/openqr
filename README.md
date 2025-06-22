@@ -37,6 +37,14 @@ For the best experience and to avoid any potential browser security issues with 
     ```
 5.  Open your browser and go to `http://localhost:8000`.
 
+**Stopping the Server**
+
+- If you started the server directly in your terminal, you can stop it at any time by pressing `Ctrl+C`.
+- If you see an `Address already in use` error, it means the port is occupied. You can free it up with the following command:
+  ```bash
+  fuser -k 8000/tcp
+  ```
+
 ## 📝 How to Use the App
 
 Using the QR code generator is straightforward:

@@ -1,3 +1,5 @@
+const themeToggle = document.getElementById('checkbox');
+const body = document.body;
 const qrTextInput = document.getElementById('qr-text');
 const qrCodeContainer = document.getElementById('qr-code');
 const colorDarkInput = document.getElementById('color-dark');
@@ -55,4 +57,32 @@ downloadBtn.addEventListener('click', downloadQRCode);
 // Initial generation if there's text already (e.g., from browser cache)
 if (qrTextInput.value) {
     generateQRCode();
+}
+
+// --- Theme Switcher Logic ---
+function applyTheme(theme) {
+    if (theme === 'dark') {
+        body.classList.add('dark-mode');
+        themeToggle.checked = true;
+    } else {
+        body.classList.remove('dark-mode');
+        themeToggle.checked = false;
+    }
+}
+
+function switchTheme(e) {
+    const theme = e.target.checked ? 'dark' : 'light';
+    localStorage.setItem('theme', theme);
+    applyTheme(theme);
+}
+
+themeToggle.addEventListener('change', switchTheme, false);
+
+// Check for saved theme on load
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+    applyTheme(savedTheme);
+} else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    // Or check for system preference
+    applyTheme('dark');
 }
